@@ -1,48 +1,45 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
+import emailjs from "emailjs-com"
+import Swal from "sweetalert2"
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    nombre: "",
-    telefono: "",
-    email: "",
-    consulta: "",
-  })
+  const [isLoading, setIsLoading] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
 
-    // Create mailto link with form data
-    const subject = encodeURIComponent("Nueva consulta desde el sitio web")
-    const body = encodeURIComponent(`
-Nombre: ${formData.nombre}
-Teléfono: ${formData.telefono}
-Correo electrónico: ${formData.email}
-
-Consulta:
-${formData.consulta}
-    `)
-
-    window.location.href = `mailto:tucorreo@ejemplo.com?subject=${subject}&body=${body}`
-
-    // Reset form
-    setFormData({
-      nombre: "",
-      telefono: "",
-      email: "",
-      consulta: "",
-    })
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    emailjs
+      .sendForm(
+        "service_0gtxkeo", 
+        "template_5ncam6y", 
+        formRef.current!,
+        "LezlJegUkPK_3njsu" 
+      )
+      .then(() => {
+        Swal.fire({
+          title: "¡Mensaje enviado!",
+          text: "Nos pondremos en contacto contigo lo antes posible.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        })
+        formRef.current?.reset()
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo enviar el mensaje. Inténtalo más tarde.",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        })
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -56,7 +53,7 @@ ${formData.consulta}
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
+          {/* Información de contacto */}
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Información de Contacto</h3>
@@ -67,7 +64,7 @@ ${formData.consulta}
                   </div>
                   <div className="ml-4">
                     <p className="text-gray-900 font-medium">Email</p>
-                    <p className="text-gray-600">tucorreo@ejemplo.com</p>
+                    <p className="text-gray-600">consultas@desarrollostab.com</p>
                   </div>
                 </div>
 
@@ -87,7 +84,7 @@ ${formData.consulta}
                   </div>
                   <div className="ml-4">
                     <p className="text-gray-900 font-medium">Ubicación</p>
-                    <p className="text-gray-600">Trabajamos de forma remota pero nos ubicamos en Cordoba Capital</p>
+                    <p className="text-gray-600">Córdoba Capital, Argentina</p>
                   </div>
                 </div>
               </div>
@@ -116,9 +113,9 @@ ${formData.consulta}
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Formulario */}
           <div className="bg-gray-50 p-8 rounded-2xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
               <div>
                 <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-2">
                   Nombre *
@@ -128,9 +125,7 @@ ${formData.consulta}
                   id="nombre"
                   name="nombre"
                   required
-                  value={formData.nombre}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   placeholder="Tu nombre completo"
                 />
               </div>
@@ -144,9 +139,7 @@ ${formData.consulta}
                   id="telefono"
                   name="telefono"
                   required
-                  value={formData.telefono}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   placeholder="+1 234 567 8900"
                 />
               </div>
@@ -160,9 +153,7 @@ ${formData.consulta}
                   id="email"
                   name="email"
                   required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   placeholder="tu@email.com"
                 />
               </div>
@@ -176,19 +167,17 @@ ${formData.consulta}
                   name="consulta"
                   required
                   rows={5}
-                  value={formData.consulta}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-                  placeholder="Cuéntanos sobre tu proyecto, necesidades y objetivos..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
+                  placeholder="Cuéntanos sobre tu proyecto..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 flex items-center justify-center"
               >
-                <Send className="w-5 h-5 mr-2" />
-                Enviar mensaje
+                {isLoading ? "Enviando..." : <><Send className="w-5 h-5 mr-2" />Enviar mensaje</>}
               </button>
             </form>
           </div>
