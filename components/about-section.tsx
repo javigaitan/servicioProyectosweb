@@ -13,7 +13,7 @@ export function AboutSection() {
             <p className="text-lg text-gray-700 leading-relaxed">
               Somos un equipo de{" "}
               <strong className="text-blue-600">diseñadores, analistas de sistemas y programadores</strong> con más de{" "}
-              <strong className="text-blue-600">5 años de experiencia</strong> en el desarrollo de soluciones digitales.
+              <strong className="text-blue-600">5 años de experiencia</strong> en el desarrollo de soluciones digitales con pymes nacionales e internacionales.
             </p>
 
             <p className="text-lg text-gray-700 leading-relaxed">
