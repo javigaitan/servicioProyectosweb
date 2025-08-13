@@ -77,7 +77,7 @@ ${formData.consulta}
                   </div>
                   <div className="ml-4">
                     <p className="text-gray-900 font-medium">WhatsApp</p>
-                    <p className="text-gray-600">+1 234 567 8900</p>
+                    <p className="text-gray-600">+54 9 3512075105</p>
                   </div>
                 </div>
 
@@ -87,7 +87,7 @@ ${formData.consulta}
                   </div>
                   <div className="ml-4">
                     <p className="text-gray-900 font-medium">Ubicación</p>
-                    <p className="text-gray-600">Trabajamos de forma remota</p>
+                    <p className="text-gray-600">Trabajamos de forma remota pero nos ubicamos en Cordoba Capital</p>
                   </div>
                 </div>
               </div>

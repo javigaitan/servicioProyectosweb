@@ -4,9 +4,22 @@ export function PackagesSection() {
   const packages = [
     {
       icon: Star,
+      name: "Consultoría y Soporte de Sistemas",
+      description: "Landing + Google Business + SEO básico",
+      price: " $ 30,00 / hora",
+      gradient: "from-blue-500 to-blue-600",
+      features: [
+        "Diagnóstico de necesidades",
+        "Propuestas de mejora",
+        "Asistencia remota o presencial",
+
+      ],
+    },
+    {
+      icon: Zap,
       name: "Pack Presencia Básica",
       description: "Landing + Google Business + SEO básico",
-      price: "USD 350-500",
+      price: " $130.000",
       gradient: "from-blue-500 to-blue-600",
       features: [
         "Landing page profesional",
@@ -14,21 +27,13 @@ export function PackagesSection() {
         "SEO básico optimizado",
         "Integración redes sociales",
       ],
-    },
-    {
-      icon: Zap,
-      name: "Pack E-Commerce Express",
-      description: "Tienda Online + Carga 20 productos + Capacitación",
-      price: "USD 600-800",
-      gradient: "from-purple-500 to-purple-600",
-      features: ["Tienda online completa", "Carga de 20 productos", "Capacitación incluida", "Pasarela de pagos"],
       popular: true,
     },
     {
       icon: Crown,
       name: "Pack Full Digital",
-      description: "Página Web + Tienda Online + Consultoría SEO + Google Business",
-      price: "USD 1000+",
+      description: "Página Web + Consultoría SEO + Google Business",
+      price: "$190.000",
       gradient: "from-indigo-500 to-indigo-600",
       features: [
         "Página web corporativa",
@@ -55,9 +60,8 @@ export function PackagesSection() {
             return (
               <div
                 key={index}
-                className={`relative bg-white rounded-2xl p-8 shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${
-                  pkg.popular ? "border-purple-500 scale-105" : "border-gray-200"
-                }`}
+                className={`relative bg-white rounded-2xl p-8 shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${pkg.popular ? "border-purple-500 scale-105" : "border-gray-200"
+                  }`}
               >
                 {pkg.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -90,15 +94,21 @@ export function PackagesSection() {
                   ))}
                 </ul>
 
-                <button
-                  className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
-                    pkg.popular
-                      ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-600 hover:to-purple-700"
-                      : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                  }`}
+
+                <a
+                  href="https://wa.me/543512075102?text=Hola!%20quiero%20saber%20mas%20sobre%20sus%20pack%20de%20diseño%20web"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  Solicitar Información
-                </button>
+                  <button
+                    className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${pkg.popular
+                        ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-600 hover:to-purple-700"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                      }`}
+                  >
+                    Solicitar Información
+                  </button>
+                </a>
               </div>
             )
           })}
